@@ -1,0 +1,24 @@
+:root {
+    /* Cores Principais */
+    --primary-color: #E94B35; /* Vermelho-alaranjado */
+    --secondary-color: #F25C43; /* Laranja Suave */
+    
+    /* Cores Neutras */
+    --neutral-dark: #2B2B2B; /* Cinza Escuro */
+    --neutral-light: #F5F5F5; /* Branco Gelo */
+    --neutral-alt: #FBE9E7; /* Bege Claro */
+  
+    /* Tipografia */
+    --font-primary: 'Roboto', sans-serif;
+    --font-secondary: 'Merriweather', serif;
+  
+    /* Bordas */
+    --border-radius: 8px;
+  
+    /* Sombreamento */
+    --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  
+    /* Transições */
+    --transition-speed: 0.3s;
+  }
+  
