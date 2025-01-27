@@ -1,0 +1,21 @@
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Efeito de zoom com animação */
+.zoom-effect {
+  transition: transform 0.3s ease-in-out; /* Para suavizar a animação */
+}
+
+.zoom-effect:hover {
+  animation: zoom-in 0.3s forwards;
+}
+
+@keyframes zoom-in {
+  0% {
+    transform: scale(1); /* Tamanho normal */
+  }
+  100% {
+    transform: scale(1.1); /* Aumenta o tamanho para 110% */
+  }
+}
