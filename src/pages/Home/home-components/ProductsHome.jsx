@@ -69,7 +69,7 @@ const ProductsHome = () => {
              <ProductCard
                image={produto.image}
                name={produto.name}
-               description={produto.description}
+               description={produto.category}
                price={produto.price}
                size="large"
              />
@@ -95,7 +95,7 @@ const ProductsHome = () => {
                  <ProductCard
                    image={produto.image}
                    name={produto.name}
-                   description={produto.description}
+                   description={produto.category}
                    price={produto.price}
                    size="small"
                  />
