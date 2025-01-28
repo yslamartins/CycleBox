@@ -1,112 +1,81 @@
-import React from 'react';
+import React from 'react';  
+import { FaMapMarkerAlt, FaPhoneAlt, FaClock } from "react-icons/fa"; 
+
 import '../index.css'
+import logo from '../assets/logo.png'
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer>
-      <div>
-        <div>
-          <img alt="Logo" />
-          <p >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore.
-          </p>
-          <div className="flex space-x-4 mb-6 pt-7 text-[23px] gap-5">
-            <a href="#" className="text-white">
-            </a>
-            <a href="#" className="text-white">
-            </a>
-            <a href="#" className="text-white">
-            </a>
+    <footer className="bg-white mt-4">
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex flex-col md:flex-row justify-between gap-8">
+          <div className="flex-shrink-0">
+            <div className="w-32 h-8">
+              <img src={logo} alt="Logo" className="w-full h-auto" />
+            </div>
+            <p className="mt-4 ml-2 text-sm text-gray-600 max-w-xs">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+              tempor incididunt ut labore et dolore.
+            </p>
           </div>
-        </div>
 
-        <div className="flex gap-28 ">
-          <div className="G w-[135px] ">
+          <div className="flex flex-col md:flex-row gap-8 md:gap-16">
             <div>
-              <h3 className="text-lg font-bold pb-5">Informação</h3>
-              <ul className="flex flex-col gap-3 mt-0">
-                <li>
-                  <a href="#" className="text-white hover:underline">
-                    Sobre Drip Store
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-white hover:underline">
-                    Segurança
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-white hover:underline">
-                    Wishlist
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-white hover:underline">
-                    Blog
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-white hover:underline">
-                    Trabalhe conosco
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-white hover:underline">
-                    Meus Pedidos
-                  </a>
-                </li>
+              <h3 className="text-lg font-bold text-sm mb-4">Como Funciona</h3>
+              <ul className="space-y-2">
+                <li><a href="/" className="text-sm text-gray-600 hover:underline">Sobre</a></li>
+                <li><a href="/" className="text-sm text-gray-600 hover:underline">Autenticidade</a></li>
+                <li><a href="/" className="text-sm text-gray-600 hover:underline">Como Cuidar</a></li>
+                <li><a href="/" className="text-sm text-gray-600 hover:underline">Newsletter</a></li>
               </ul>
             </div>
-          </div>
 
-          <div className="G w-[96px]">
-            <h3 className="text-lg font-bold pb-5">Categoria</h3>
-            <ul className="flex flex-col gap-3 mt-0">
-              <li>
-                <a href="#" className="text-white hover:underline">
-                  Camisetas
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-white hover:underline">
-                  Calças
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-white hover:underline">
-                  Bonés
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-white hover:underline">
-                  Headphones
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-white hover:underline">
-                  Tênis
-                </a>
-              </li>
-            </ul>
+            <div>
+              <h3 className="text-lg font-bold text-sm mb-4">Saiba Mais</h3>
+              <ul className="space-y-2">
+                <li><a href="#" className="text-sm text-gray-600 hover:underline">Opções de Pagamento</a></li>
+                <li><a href="#" className="text-sm text-gray-600 hover:underline">Políticas de Devolução</a></li>
+                <li><a href="#" className="text-sm text-gray-600 hover:underline">Termo de Autenticidade</a></li>
+                <li><a href="#" className="text-sm text-gray-600 hover:underline">Políticas de Privacidade</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-bold text-sm mb-4">Contato</h3>
+              <div className="mb-4">
+                <h4 className="text-md font-semibold flex items-center gap-2 text-sm">
+                  <FaMapMarkerAlt className="text-gray-600 " />
+                  Endereço
+                </h4>
+                <p className="text-sm text-gray-600 mt-1">
+                  236 5th SE Avenue, New York NY10000, United States
+                </p>
+              </div>
+
+                         <div className="mb-4">
+                <h4 className="text-md font-semibold flex items-center gap-2 text-sm">
+                  <FaPhoneAlt className="text-gray-600" />
+                  Telefone
+                </h4>
+                <p className="text-sm text-gray-600 mt-1">+(84) 546-6789</p>
+              </div>
+
+                        <div className="mb-4">
+                <h4 className="text-md font-semibold flex items-center gap-2 text-sm">
+                  <FaClock className="text-gray-600" />
+                  Horário
+                </h4>
+                <p className="text-sm text-gray-600 mt-1">Segunda-Sexta: 9:00 - 22:00 </p>
+                <p className="text-sm text-gray-600 mt-1"> Sábado-Domingo: 9:00 - 21:00 </p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="G w-[233px] pt-5 md:pt-0 ">
-          <h3 className="text-lg font-bold">Contato</h3>
-          <p className="md:pt-4">
-            Av. Santos Dumont, 1510 - 1 andar - Aldeota, Fortaleza - CE,
-            60150-161
-          </p>
-          <p className="pt-7">(85) 3051-3411</p>
+        <div className="border-t border-gray-300 mt-8 pt-6 text-center">
+          <p className="text-sm text-gray-600">&copy; 2025 CycleBox. Todos os direitos reservados.</p>
         </div>
-      </div>
-
-      <div className="w-full border-t-2 border-t-gray-500 mt-4 text-center pt-8 pb-5 ">
-        <p>&copy; 2024 Digital College</p>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}
