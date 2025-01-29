@@ -108,7 +108,7 @@ export default function Header() {
                         </button>
 
                         {/* Ícone de Perfil (Pessoa) - Desktop */}
-                        <NavLink to="/entrar">
+                        <NavLink to="/login">
                             <button className="hidden md:block cursor-pointer">
                                 <IoPersonOutline className="text-[24px] md:text-[28px] text-[var(--primary-color)]" />
                             </button>
@@ -139,7 +139,7 @@ export default function Header() {
                         ref={menuRef} // Referência ao menu
                         className="w-[80%] bg-[var(--neutral-light)] h-full px-5 py-6 flex flex-col justify-between"
                     >
-                        <nav className="flex flex-col gap-4 z-50">
+                        <nav className="flex flex-col gap-4 z-10">
                             <NavLink
                                 to="/"
                                 className={({ isActive }) =>
@@ -190,7 +190,7 @@ export default function Header() {
                             </NavLink>
                         </nav>
                         <div className="flex justify-center">
-                            <NavLink to="/entrar">
+                            <NavLink to="/login">
                                 <Button text="Entrar" />
                             </NavLink>
                         </div>
