@@ -6,13 +6,13 @@ const ProductCard = ({ image, name, description, price, size }) => {
   const cardClass = size === 'small' ? 'w-[180px] h-[350px]' : 'w-[200px] h-[350px] gap-4';
 
   return (
-    <div className={`flex flex-col items-center bg-white overflow-hidden ${cardClass} cursor-pointer`}>
+    <div className={`flex flex-col items-center hover:scale-105 transition-transform bg-white overflow-hidden ${cardClass} cursor-pointer`}>
       {/* Div da foto */}
       <div className="w-full h-full overflow-hidden">
         <img
           src={image} // Usando a URL da imagem do produto
           alt={name} // Usando o nome do produto para alt
-          className="w-full h-full object-cover hover:scale-105 transition-transform"
+          className="w-full h-full object-cover "
         />
       </div>
 
