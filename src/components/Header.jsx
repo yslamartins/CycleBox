@@ -30,16 +30,16 @@ export default function Header() {
 
     return (
         <>
-            <header className="bg-[var(--neutral-light)] max-h-[400px] fixed w-full z-10">
-                <div className="flex justify-evenly items-center">
-                    {/* Logo e Menu (Mobile) */}
+            <header className="bg-[var(--neutral-light)] h-[70px] fixed w-full z-10 flex items-center px-4 shadow-[var(--box-shadow)]">
+                <div className="flex justify-between items-center w-full max-w-[1200px] mx-auto">
+                    {/* Menu e Logo */}
                     <div className="flex items-center gap-3">
                         <IoMenu
-                            className="text-[28px] md:hidden"
+                            className="text-[24px] md:hidden cursor-pointer"
                             onClick={() => setMostrarMenu(!mostrarMenu)}
                         />
                         <NavLink to="/">
-                            <img src={Logo} alt="Logo" className="w-28 lg:w-30 object-contain cursor-pointer" />
+                            <img src={Logo} alt="Logo" className="w-20 lg:w-24 object-contain cursor-pointer" />
                         </NavLink>
                     </div>
 
@@ -82,23 +82,21 @@ export default function Header() {
 
                     {/* Ícones de Busca, Carrinho e Perfil (Pessoa) */}
                     <div className="flex items-center gap-3">
-                        {/* Barra de Pesquisa - Mobile */}
-                        <button
-                            className="md:hidden"
-                            onClick={() => setMostrarPesquisa(!mostrarPesquisa)}
-                        >
-                            <CiSearch className="text-[24px] md:text-[28px]" />
-                        </button>
+                        {!mostrarPesquisa && (
+                            <button className="md:hidden" onClick={() => setMostrarPesquisa(true)}>
+                                <CiSearch className="text-[24px]" />
+                            </button>
+                        )}
 
                         <div className="flex gap-2 hidden md:block">
                             <label htmlFor="search" className="flex">
-                                <CiSearch className="text-[24px] md:text-[28px] self-center" />
                                 <input
                                     type="text"
                                     id="search"
                                     className="border-2 border-gray-300 p-2 rounded-md text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-blue-500"
                                     placeholder="Buscar..."
                                 />
+                                <CiSearch className="text-[24px] md:text-[28px] self-center" />
                             </label>
                         </div>
 
@@ -110,7 +108,7 @@ export default function Header() {
                         </button>
 
                         {/* Ícone de Perfil (Pessoa) - Desktop */}
-                        <NavLink to="/entrar">
+                        <NavLink to="/login">
                             <button className="hidden md:block cursor-pointer">
                                 <IoPersonOutline className="text-[24px] md:text-[28px] text-[var(--primary-color)]" />
                             </button>
@@ -120,13 +118,16 @@ export default function Header() {
 
                 {/* Barra de Pesquisa Expandida - Mobile */}
                 {mostrarPesquisa && (
-                    <div className="flex bg-[var(--neutral-gray)] w-full justify-between rounded-md px-4 py-2 md:hidden">
+                    <div className="flex md:hidden bg-var[{neutral-light}] border border-gray-300 rounded-md px-4 py-2 w-full mt-2">
+                        <CiSearch className="text-gray-500 text-[20px] mr-2" />
                         <input
                             type="text"
-                            placeholder="Pesquisar produtos..."
-                            className="bg-[var(--neutral-gray)] w-full outline-none"
+                            placeholder="Pesquisar..."
+                            className="w-full bg-transparent outline-none text-sm"
                         />
-                        <CiSearch className="text-[20px]" />
+                        <button onClick={() => setMostrarPesquisa(false)} className="ml-2 text-gray-500">
+                            ✖
+                        </button>
                     </div>
                 )}
             </header>
@@ -138,7 +139,7 @@ export default function Header() {
                         ref={menuRef} // Referência ao menu
                         className="w-[80%] bg-[var(--neutral-light)] h-full px-5 py-6 flex flex-col justify-between"
                     >
-                        <nav className="flex flex-col gap-4 z-50">
+                        <nav className="flex flex-col gap-4 z-10">
                             <NavLink
                                 to="/"
                                 className={({ isActive }) =>
@@ -189,7 +190,7 @@ export default function Header() {
                             </NavLink>
                         </nav>
                         <div className="flex justify-center">
-                            <NavLink to="/entrar">
+                            <NavLink to="/login">
                                 <Button text="Entrar" />
                             </NavLink>
                         </div>
