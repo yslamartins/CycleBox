@@ -7,8 +7,8 @@ export default function About() {
   return (
     <>
       <Header />
-      <div className="min-h-screen bg-[#D9D9D9] py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mt-18 mx-auto bg-white p-8 rounded-lg shadow-lg">
+      <div className="min-h-screen bg-[#D9D9D9] py-8 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mt-14 mx-auto bg-white p-8 rounded-lg shadow-lg">
           <h1 className="text-4xl text-[#E94B35] font-bold text-center mb-8">
             Sobre a Cyclebox
           </h1>
