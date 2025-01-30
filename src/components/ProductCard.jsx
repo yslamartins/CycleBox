@@ -1,11 +1,14 @@
 // components/ProductCard.js
 import React from 'react';
+import { Link, useParams } from "react-router-dom";
 
-const ProductCard = ({ image, name, description, price, size }) => {
+
+const ProductCard = ({ id, image, name, description, price, size }) => {
   // Define a classe do card dependendo do tamanho
   const cardClass = size === 'small' ? 'w-[180px] h-[350px]' : 'w-[200px] h-[350px] gap-4';
 
   return (
+   <Link to={`/produto/${id}`} className="block">
     <div className={`flex flex-col items-center hover:scale-105 transition-transform bg-white overflow-hidden ${cardClass} cursor-pointer`}>
       {/* Div da foto */}
       <div className="w-full h-full overflow-hidden">
@@ -25,6 +28,7 @@ const ProductCard = ({ image, name, description, price, size }) => {
         </p>
       </div>
     </div>
+   </Link> 
   );
 };
 

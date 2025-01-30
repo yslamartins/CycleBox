@@ -7,6 +7,8 @@ import "swiper/css/autoplay";
 import 'swiper/css/navigation';
 import 'swiper/css/scrollbar';
 import {Autoplay, Scrollbar } from "swiper/modules";
+import { Link } from "react-router-dom";
+
 
 import ProductCard from "../../../components/ProductCard";
 
@@ -67,6 +69,7 @@ const ProductsHome = () => {
             <div key={index} className="flex flex-col items-center bg-white overflow-hidden w-[200px] cursor-pointer">
               {/* Div da foto */}
              <ProductCard
+               id={produto.id}
                image={produto.image}
                name={produto.name}
                description={produto.category}
@@ -93,6 +96,7 @@ const ProductsHome = () => {
               <SwiperSlide key={index}>
                 <div className="flex flex-col items-center bg-white overflow-hidden">
                  <ProductCard
+                   id={produto.id}
                    image={produto.image}
                    name={produto.name}
                    description={produto.category}
@@ -109,15 +113,13 @@ const ProductsHome = () => {
       {/* Botão "Ver mais" (exibido apenas se houver mais de 4 produtos) */}
       {produtos.length > 4 && (
         <div className="hidden md:flex justify-center mt-6 pb-10">
+          <Link to='/produtos'>
           <button
-            onClick={() => {
-              // Redirecionar para outra página
-              window.location.href = "/"; // Altere o caminho conforme necessário
-            }}
-            className="text-[#E94B35] border border-[#E94B35] hover:scale-105 transition-transform bg-white text-sm px-10 py-2 cursor-pointer"
+            className="text-[#E94B35] border border-[#E94B35] hover:bg-[#F25C43] hover:text-white hover:scale-105 transition-transform bg-white text-sm px-10 py-2 cursor-pointer"
           >
             Ver mais
           </button>
+          </Link>
         </div>
       )}
     </>

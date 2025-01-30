@@ -6,7 +6,7 @@ import logo from '../assets/logo.png'
 
 export default function Footer() {
   return (
-    <footer className="bg-white mt-4">
+    <footer className="shadow-[var(--box-shadow) bg-white mt-4">
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row justify-between gap-8">
           <div className="flex-shrink-0">
