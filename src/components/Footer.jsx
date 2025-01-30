@@ -23,7 +23,7 @@ export default function Footer() {
             <div>
               <h3 className="text-lg font-bold text-sm mb-4">Como Funciona</h3>
               <ul className="space-y-2">
-                <li><a href="/" className="text-sm text-gray-600 hover:underline">Sobre</a></li>
+                <li><a href="/sobre" className="text-sm text-gray-600 hover:underline">Sobre</a></li>
                 <li><a href="/" className="text-sm text-gray-600 hover:underline">Autenticidade</a></li>
                 <li><a href="/" className="text-sm text-gray-600 hover:underline">Como Cuidar</a></li>
                 <li><a href="/" className="text-sm text-gray-600 hover:underline">Newsletter</a></li>
