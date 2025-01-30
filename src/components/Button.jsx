@@ -6,7 +6,7 @@ const Button = ({ text, onClick, className }) => {
     <button
       onClick={onClick}
       className={classNames(
-        'px-6 py-3 rounded-[var(--border-radius)] font-[var(--font-primary)] text-sm md:text-base transition-colors duration-[var(--transition-speed)]',
+        'px-6 py-3 rounded-[var(--border-radius)] font-[var(--font-primary)] text-sm md:text-base transition-colors duration-[var(--transition-speed)] cursor-pointer',
         // Cor de fundo
         'bg-[var(--primary-color)] hover:bg-[var(--secondary-color)] active:bg-[var(--primary-color)]',
         // Cor do texto
