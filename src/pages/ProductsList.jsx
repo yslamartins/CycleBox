@@ -85,7 +85,7 @@ export default function ProductsList() {
               className={`px-4 py-2 rounded-lg ${
                 currentPage === i + 1
                   ? "bg-[#E94B35] text-white cursor-pointer"
-                  : "bg-gray-200 text-gray-700 cursor-pointer"
+                  : "bg-gray-200 text-gray-700 hover:bg-[#FBE9E7] cursor-pointer"
               }`}
             >
               {i + 1}
