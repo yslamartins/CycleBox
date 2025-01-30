@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 import About from './pages/About'
 import Header from './components/Header';
 import SignInSignUp from './pages/SignInSignUp';
+import SingleProduct from './pages/SingleProduct';
 function App() {
   return (
       <BrowserRouter>
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/sobre" element={<About />} />
           <Route path="/login" element={<SignInSignUp />} />
+          <Route path="/produto/:id" element={<SingleProduct />} />
         </Routes>
         <Footer/>
       </BrowserRouter>
