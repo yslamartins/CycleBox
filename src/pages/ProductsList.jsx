@@ -266,6 +266,24 @@ export default function ProductsList() {
             )
           )}
         </div>
+        <div className="mt-4 py-8 grid grid-cols-1 bg-[var(--neutral-alt)] md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="text-center">
+            <h2 className="text-md font-semibold">Alta Qualidade</h2>
+            <p className="text-gray-600 text-sm">Curadoria de excelência</p>
+          </div>
+          <div className="text-center">
+            <h2 className="text-md font-semibold">Proteção de garantia</h2>
+            <p className="text-gray-600 text-sm">Mais de 2 anos</p>
+          </div>
+          <div className="text-center">
+            <h2 className="text-md font-semibold">Frete grátis</h2>
+            <p className="text-gray-600 text-sm">Pedidos acima de R$250</p>
+          </div>
+          <div className="text-center">
+            <h2 className="text-md font-semibold">Suporte 24h</h2>
+            <p className="text-gray-600 text-sm">Suporte dedicado</p>
+          </div>
+        </div>
       </div>
     </>
   );
