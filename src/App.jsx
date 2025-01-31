@@ -6,7 +6,6 @@ import Footer from './components/Footer'
 import About from './pages/About'
 import ProductsList from './pages/ProductsList'
 
-
 import Header from './components/Header';
 import SignInSignUp from './pages/SignInSignUp';
 import SingleProduct from './pages/SingleProduct';
@@ -20,6 +19,7 @@ function App() {
           <Route path="/produtos" element={<ProductsList />} />
           <Route path="/login" element={<SignInSignUp />} />
           <Route path="/produto/:id" element={<SingleProduct />} />
+          <Route path="/produtos/categoria/:categoria" element={<ProductsList />} />
         </Routes>
         <Footer/>
       </BrowserRouter>
