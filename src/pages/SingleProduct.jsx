@@ -4,6 +4,8 @@ import { fetchProdutos } from '../api/instance';
 import Button from '../components/Button';
 import ProductCard from '../components/ProductCard'; 
 import { FaSpinner } from 'react-icons/fa'; 
+import { Link } from "react-router-dom";
+
 
 export default function SingleProduct() {
     const [prodSelect, setProdSelect] = useState(null);
@@ -92,19 +94,29 @@ export default function SingleProduct() {
                 </div>
             </div>
 
-            <div className="container max-w-4xl mt-8">
-                <h2 className="text-2xl font-bold text-[var(--neutral-dark)] mb-6">Produtos Relacionados</h2>
-                <div className="flex flex-col items-center gap-6 justify-between lg:flex-row mb-20">
-                    {relatedProducts.map((product) => (
-                        <div key={product.id} className="">
-                            <ProductCard
-                                image={product.image}
-                                name={product.name}
-                                description={product.category}
-                                price={product.price}
-                            />
-                        </div>
-                    ))}
+            <div className="flex flex-col max-w-4xl mt-8">
+                <h2 className="text-2xl text-center font-bold text-[var(--neutral-dark)] mb-6">Produtos Relacionados</h2>
+                <div className="flex flex-col lg:flex-row gap-6 justify-between mb-8">
+        {relatedProducts.map((product) => (
+            <div key={product.id}>
+                <ProductCard
+                    id={product.id}
+                    image={product.image}
+                    name={product.name}
+                    description={product.category}
+                    price={product.price}
+                />
+            </div>
+        ))}
+                </div>
+                <div className="flex justify-center">
+        <Link to='/produtos'>
+            <button
+                className="text-[#E94B35] border border-[#E94B35] hover:bg-[#F25C43] hover:text-white hover:scale-105 transition-transform bg-white text-sm px-10 py-2 cursor-pointer"
+            >
+                Ver mais
+            </button>
+        </Link>
                 </div>
             </div>
         </div>
