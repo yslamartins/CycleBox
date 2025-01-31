@@ -7,7 +7,7 @@ import masc from '../../../assets/masc.jpg';
 
 export default function CategorySection() {
   return (
-    <div className="pt-[150px]"> {/* Ajuste o valor conforme a altura do Header */}
+    <div>
       <h1 className="text-center font-bold text-2xl mb-1 text-[#E94B35]">Compre por categoria</h1>
       <p className="text-center text-sm mb-4 font-(--font-secondary)">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
