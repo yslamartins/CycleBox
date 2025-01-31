@@ -56,7 +56,7 @@ Junte-se a nós nessa jornada por um consumo mais consciente e sustentável! Exp
 
 - **Teresa Campos**  
   GitHub: [@teresaccampos](https://github.com/teresaccampos)  
-  LinkedIn: 
+  LinkedIn: (https://www.linkedin.com/in/teresacamposdev)
 
 ---
 
