@@ -16,7 +16,7 @@ export default function About() {
           <p className="text-lg text-gray-700 mb-6">
             Bem-vindo à <strong>Cyclebox</strong>, o seu brechó online moderno e
             sustentável! Nossa missão é transformar a maneira como as pessoas
-            compram e vendem produtos usados, oferecendo uma plataforma
+            compram produtos usados, oferecendo uma plataforma
             intuitiva e segura para todos.
           </p>
 
@@ -32,7 +32,7 @@ export default function About() {
           </h2>
           <p className="text-lg text-gray-700 mb-6">
             A Cyclebox é uma plataforma online que conecta compradores e
-            vendedores de produtos usados. Aqui, você pode:
+           produtos usados. Aqui, você pode:
           </p>
           <ul className="list-disc list-inside text-lg text-gray-700 mb-6">
             <li className="mb-2">
@@ -42,10 +42,6 @@ export default function About() {
             <li className="mb-2">
               Comprar produtos com facilidade e segurança, garantindo transações
               confiáveis.
-            </li>
-            <li className="mb-2">
-              Vender itens que você não usa mais, dando uma nova vida a eles e
-              ajudando o meio ambiente.
             </li>
           </ul>
 
