@@ -5,9 +5,6 @@ import Home from './pages/Home/Home';
 import Footer from './components/Footer';
 import About from './pages/About';
 import ProductsList from './pages/ProductsList';
-import Footer from './components/Footer'
-import About from './pages/About'
-import ProductsList from './pages/ProductsList'
 
 import Header from './components/Header';
 import SignInSignUp from './pages/SignInSignUp';
