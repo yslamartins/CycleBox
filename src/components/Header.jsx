@@ -10,23 +10,28 @@ import '../styles/variables.css';
 export default function Header() {
     const [mostrarPesquisa, setMostrarPesquisa] = useState(false);
     const [mostrarMenu, setMostrarMenu] = useState(false);
-    const menuRef = useRef(null);  // Referência para o menu
+    const menuRef = useRef(null);
 
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (menuRef.current && !menuRef.current.contains(event.target)) {
-                setMostrarMenu(false);  // Fecha o menu se o clique for fora
+                setMostrarMenu(false);
             }
         };
 
-        // Adiciona o listener de clique
         document.addEventListener('mousedown', handleClickOutside);
 
-        // Limpeza do evento quando o componente for desmontado
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
+
+    const scrollToContato = () => {
+        const contatoSection = document.getElementById("contato");
+        if (contatoSection) {
+            contatoSection.scrollIntoView({ behavior: "smooth" });
+        }
+    };
 
     return (
         <>
@@ -67,17 +72,12 @@ export default function Header() {
                         >
                             Sobre
                         </NavLink>
-                        <NavLink
-                            to="/contato"
-                            className={({ isActive }) =>
-                                classNames('text-sm md:text-base font-medium', {
-                                    'text-[var(--primary-color)] underline': isActive,
-                                    'text-neutral-dark hover:text-[var(--primary-color)]': !isActive,
-                                })
-                            }
+                        <button
+                            onClick={scrollToContato}
+                            className="text-sm md:text-base font-medium text-neutral-dark hover:text-[var(--primary-color)]"
                         >
                             Contato
-                        </NavLink>
+                        </button>
                     </nav>
 
                     {/* Ícones de Busca, Carrinho e Perfil (Pessoa) */}
@@ -136,7 +136,7 @@ export default function Header() {
             {mostrarMenu && (
                 <div className="bg-black/50 w-screen h-screen fixed top-0 z-10 md:hidden">
                     <div
-                        ref={menuRef} // Referência ao menu
+                        ref={menuRef}
                         className="w-[80%] bg-[var(--neutral-light)] h-full px-5 py-6 flex flex-col justify-between"
                     >
                         <nav className="flex flex-col gap-4 z-10">
@@ -176,18 +176,15 @@ export default function Header() {
                             >
                                 Sobre
                             </NavLink>
-                            <NavLink
-                                to="/contato"
-                                className={({ isActive }) =>
-                                    classNames('block py-2 transition-colors duration-300 text-sm md:text-base', {
-                                        'text-[var(--primary-color)] font-bold underline': isActive,
-                                        'text-neutral-dark hover:text-[var(--primary-color)]': !isActive,
-                                    })
-                                }
-                                onClick={() => setMostrarMenu(false)}
+                            <button
+                                onClick={() => {
+                                    scrollToContato();
+                                    setMostrarMenu(false);
+                                }}
+                                className="text-sm md:text-base font-medium text-neutral-dark hover:text-[var(--primary-color)] cursor-pointer"
                             >
                                 Contato
-                            </NavLink>
+                            </button>
                         </nav>
                         <div className="flex justify-center">
                             <NavLink to="/login">
