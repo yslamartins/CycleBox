@@ -59,7 +59,7 @@ const ProductsHome = () => {
 
   return (
     <>
-      <h1 className="text-center font-bold text-2xl pt-8 mb-4 text-[#E94B35]">
+      <h1 className="text-center font-bold text-2xl pt-[40px] mb-4 text-[#E94B35]">
         Nossos produtos
       </h1>
 
