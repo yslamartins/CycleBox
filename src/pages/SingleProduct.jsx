@@ -13,27 +13,42 @@ export default function SingleProduct() {
     const [loading, setLoading] = useState(true);
     const { id } = useParams();
 
+     const fetchProdutos = async () => {
+        const response = await fetch("http://localhost:3000/produtos");
+        if (!response.ok) throw new Error("Erro ao buscar produtos");
+        return await response.json();
+    };
+
+    const fetchProdutoById = async (id) => {
+        const response = await fetch(`http://localhost:4000/products/produtos/${id}`);
+        if (!response.ok) throw new Error("Erro ao buscar o produto");
+        return await response.json();
+    };
+
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const produtos = await fetchProdutos();
-                const produtoEncontrado = produtos.find((prod) => prod.id === id);
+                const produtoEncontrado = await fetchProdutoById(id);
                 setProdSelect(produtoEncontrado);
+                const produtos = await fetchProdutos();
+                
                 if (produtoEncontrado) {
                     const relacionados = produtos
                         .filter((prod) => prod.category === produtoEncontrado.category && prod.id !== produtoEncontrado.id)
-                        .slice(0, 3); 
+                        .slice(0, 3);
                     setRelatedProducts(relacionados);
                 }
+
                 setLoading(false); 
             } catch (error) {
                 console.error('Erro ao buscar produto:', error);
                 setLoading(false); 
             }
         };
+
         fetchProduct();
     }, [id]);
-
+    
     if (loading) {
         return (
             <div className="flex justify-center items-center h-[200px]">
