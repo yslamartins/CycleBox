@@ -9,6 +9,7 @@ import ProductsList from './pages/ProductsList';
 import Header from './components/Header';
 import SignInSignUp from './pages/SignInSignUp';
 import SingleProduct from './pages/SingleProduct';
+import UserPage from './pages/UserPage';
 
 function ScrollToTop() {
   const location = useLocation();
@@ -32,6 +33,7 @@ function App() {
         <Route path="/login" element={<SignInSignUp />} />
         <Route path="/produto/:id" element={<SingleProduct />} />
         <Route path="/produtos/categoria/:categoria" element={<ProductsList />} />
+        <Route path="/user" element={<UserPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>

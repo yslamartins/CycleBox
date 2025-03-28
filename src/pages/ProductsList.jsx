@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { fetchProdutos } from "../api/instance";
+import axios from "axios";
 import Header from "../components/Header";
 import ProductCard from "../components/ProductCard";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import './ProductList.css'
-
+import './ProductList.css';
 
 import banner from "../assets/header-produtos.jpg";
 
 export default function ProductsList() {
-  const { categoria } = useParams(); // Captura o parâmetro de URL
+  const { categoria } = useParams(); // Captura o parâmetro de URL (categoria)
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,27 +20,29 @@ export default function ProductsList() {
   const [sortBy, setSortBy] = useState(""); // Ordenação
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await fetchProdutos();
-        setProducts(data);
-        setFilteredProducts(data);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
+    carregarProdutos();
   }, []);
 
-  // Filtra os produtos por categoria, condição e ordenação
+  const carregarProdutos = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/products/produtos");
+      if (response.status === 200) {
+        setProducts(response.data);
+      } else {
+        throw new Error("Erro ao carregar produtos");
+      }
+    } catch (error) {
+      console.error("Erro ao carregar os dados", error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     let filtered = [...products];
 
-    // Filtra por categorias selecionadas
-   
+    // Filtra por categoria selecionada
     if (selectedCategories.length > 0) {
       filtered = filtered.filter((product) =>
         selectedCategories.some((category) => category.trim() === decodeURIComponent(product.category.trim()))
@@ -73,42 +74,34 @@ export default function ProductsList() {
     }
   }, [categoria]);
 
-  // Atualiza os produtos exibidos na página atual
   const indexOfLastProduct = currentPage * itemsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
-  const currentProducts = filteredProducts.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
-  );
+  const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
-  // Função para mudar de página
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // Função para lidar com a seleção de categorias
   const handleCategoryChange = (category) => {
     setSelectedCategories((prev) =>
       prev.includes(category)
-        ? prev.filter((c) => c !== category) // Remove a categoria se já estiver selecionada
-        : [...prev, category] // Adiciona a categoria se não estiver selecionada
+        ? prev.filter((c) => c !== category) 
+        : [...prev, category] 
     );
   };
 
-  // Função para lidar com a mudança na quantidade de itens por página
   const handleItemsPerPageChange = (e) => {
     setItemsPerPage(Number(e.target.value));
-    setCurrentPage(1); // Resetar para a primeira página
+    setCurrentPage(1); 
   };
 
-  // Função para lidar com a ordenação e filtro de condição
   const handleFilterChange = (e) => {
     const value = e.target.value;
     setFilterOption(value);
     if (value === "price_asc" || value === "price_desc") {
-      setSortBy(value); // Ordenação por preço
+      setSortBy(value);
     } else {
-      setSortBy(""); // Limpar ordenação quando escolher "Novo" ou "Usado"
+      setSortBy(""); 
     }
   };
 
@@ -149,7 +142,6 @@ export default function ProductsList() {
           </h1>
         </div>
 
-        {/* Controles de Exibição e Ordenação - Desktop */}
         <div className="hidden sm:flex flex-row justify-end items-center mb-6 gap-4">
           <div className="flex gap-4">
             <select
@@ -168,12 +160,9 @@ export default function ProductsList() {
           </div>
         </div>
 
-        {/* Filtros e Cards de Produtos */}
         <div className="flex flex-col sm:flex-row justify-between gap-6">
-          {/* Filtros */}
           <div className="">
             <div className="block sm:hidden mb-4 flex justify-center gap-4">
-              {/* Exibe o select para categorias e ordenação em telas menores */}
               <select
                 onChange={(e) => handleCategoryChange(e.target.value)}
                 className="p-2 border rounded"
@@ -204,7 +193,6 @@ export default function ProductsList() {
             </div>
 
             <div className="hidden sm:block bg-[var(--neutral-alt)] p-4 rounded-lg">
-              {/* Exibe os checkboxes em telas maiores */}
               <h2 className="font-bold mb-2">Filtrar por:</h2>
               {["Moda Masculina", "Moda Feminina", "Acessórios", "Calçados"].map(
                 (category) => (
@@ -213,7 +201,7 @@ export default function ProductsList() {
                       type="checkbox"
                       value={category}
                       onChange={() => handleCategoryChange(category)}
-                      checked={selectedCategories.includes(category)} // Marca o checkbox se a categoria estiver selecionada
+                      checked={selectedCategories.includes(category)} 
                       className="mr-2"
                     />
                     {category}
@@ -223,7 +211,7 @@ export default function ProductsList() {
             </div>
           </div>
 
-          {/* Coluna de Cards de Produtos */}
+
           <div className="flex-1">
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 justify-center">
               {currentProducts.map((product, index) => (
@@ -246,7 +234,6 @@ export default function ProductsList() {
           </div>
         </div>
 
-        {/* Paginação */}
         <div className="py-8 flex justify-center space-x-2">
           {Array.from(
             { length: Math.ceil(filteredProducts.length / itemsPerPage) },
@@ -254,11 +241,10 @@ export default function ProductsList() {
               <button
                 key={i + 1}
                 onClick={() => paginate(i + 1)}
-                className={`px-4 py-2 rounded-lg ${
-                  currentPage === i + 1
+                className={`px-4 py-2 rounded-lg ${currentPage === i + 1
                     ? "bg-[var(--primary-color)] text-white cursor-pointer"
                     : "bg-gray-200 text-gray-700 hover:bg-[#FBE9E7] cursor-pointer"
-                }`}
+                  }`}
               >
                 {i + 1}
               </button>
