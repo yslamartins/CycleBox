@@ -1,18 +1,11 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import './Home.css';
-
 import bag from '../../../assets/bag.jpg';
 import shoes from '../../../assets/shoes.jpg';
 import fem from '../../../assets/fem.jpg';
 import masc from '../../../assets/masc.jpg';
 
 export default function CategorySection() {
-  const navigate = useNavigate();
-
-  const handleCategoryClick = (category) => {
-    navigate(`/produtos/categoria/${category}`);
-  };
 
   return (
     <div className="pt-[20px]">
