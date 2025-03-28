@@ -1,4 +1,5 @@
 import { useState, useReducer, useCallback, useMemo } from "react";
+import { useNavigate } from "react-router-dom"; // Importa o hook de navegação
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 import vintageImage from "../assets/vintage.jpg";
 
@@ -21,9 +22,11 @@ export default function SignInSignUp() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [email, setEmail] = useState("");
+    const [name, setName] = useState(""); // Novo estado para o nome
     const [formState, dispatch] = useReducer(formReducer, { isSignUp: false, isForgot: false });
     const [message, setMessage] = useState(""); // Feedback para o usuário
     const [loading, setLoading] = useState(false); // Estado de carregamento
+    const navigate = useNavigate(); // Hook de navegação
 
     const toggleForm = useCallback(() => dispatch({ type: 'TOGGLE_SIGN_UP' }), []);
     const toggleForgot = useCallback(() => dispatch({ type: 'TOGGLE_FORGOT' }), []);
@@ -42,6 +45,10 @@ export default function SignInSignUp() {
     // Função para registro
     const handleRegister = async (e) => {
         e.preventDefault();
+        if (!name.trim()) {
+            setMessage("O campo 'Nome' é obrigatório.");
+            return;
+        }
         if (!passwordMatch) {
             setMessage("As senhas não coincidem.");
             return;
@@ -53,7 +60,7 @@ export default function SignInSignUp() {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    name: "Nome do Usuário", // Aqui você pode adicionar um campo de nome no formulário
+                    name, // Inclui o nome na requisição
                     email,
                     password,
                     isAdmin: false,
@@ -89,6 +96,7 @@ export default function SignInSignUp() {
             if (response.ok) {
                 setMessage("Login realizado com sucesso!");
                 localStorage.setItem("token", data.token); // Armazena o token
+                navigate("/user"); // Redireciona para a página /user
             } else {
                 setMessage(data.message || "Erro ao fazer login.");
             }
@@ -118,6 +126,24 @@ export default function SignInSignUp() {
 
                         {!formState.isForgot && (
                             <>
+                                {/* Campo de Nome (apenas no cadastro) */}
+                                {formState.isSignUp && (
+                                    <div className="flex flex-col mt-4 text-left">
+                                        <label htmlFor="name" className="text-gray-700 font-medium">
+                                            Nome
+                                        </label>
+                                        <input
+                                            type="text"
+                                            id="name"
+                                            className="border-2 border-gray-300 p-2 rounded-md text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] w-full"
+                                            placeholder="Digite seu nome"
+                                            value={name}
+                                            onChange={(e) => setName(e.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                )}
+
                                 <div className="flex flex-col mt-4 text-left">
                                     <label htmlFor="email" className="text-gray-700 font-medium">
                                         E-mail
@@ -200,7 +226,7 @@ export default function SignInSignUp() {
                                 )}
                                 <button
                                     className="mt-6 w-full py-2 bg-[var(--primary-color)] text-white rounded-lg font-semibold hover:bg-[var(--secondary-color)] transition cursor-pointer"
-                                    disabled={formState.isSignUp && (!passwordMatch || loading)}
+                                    disabled={formState.isSignUp && (!passwordMatch || loading || !name.trim())}
                                     onClick={formState.isSignUp ? handleRegister : handleLogin}
                                 >
                                     {loading ? "Carregando..." : formState.isSignUp ? "Criar Conta" : "Entrar"}
