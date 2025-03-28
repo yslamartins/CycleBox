@@ -21,11 +21,9 @@ export default function SignInSignUp() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [email, setEmail] = useState("");
-
-    const [formState, dispatch] = useReducer(formReducer, {
-        isSignUp: false,
-        isForgot: false,
-    });
+    const [formState, dispatch] = useReducer(formReducer, { isSignUp: false, isForgot: false });
+    const [message, setMessage] = useState(""); // Feedback para o usuário
+    const [loading, setLoading] = useState(false); // Estado de carregamento
 
     const toggleForm = useCallback(() => dispatch({ type: 'TOGGLE_SIGN_UP' }), []);
     const toggleForgot = useCallback(() => dispatch({ type: 'TOGGLE_FORGOT' }), []);
@@ -41,6 +39,66 @@ export default function SignInSignUp() {
     const passwordValidation = useMemo(() => validatePassword(password), [password, validatePassword]);
     const passwordMatch = useMemo(() => password === confirmPassword, [password, confirmPassword]);
 
+    // Função para registro
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        if (!passwordMatch) {
+            setMessage("As senhas não coincidem.");
+            return;
+        }
+
+        setLoading(true);
+        try {
+            const response = await fetch("http://localhost:4000/users/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: "Nome do Usuário", // Aqui você pode adicionar um campo de nome no formulário
+                    email,
+                    password,
+                    isAdmin: false,
+                }),
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                setMessage("Registro realizado com sucesso!");
+                resetToLogin(); // Volta para o formulário de login
+            } else {
+                setMessage(data.message || "Erro ao registrar.");
+            }
+        } catch (error) {
+            setMessage("Erro na comunicação com o servidor.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    // Função para login
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        try {
+            const response = await fetch("http://localhost:4000/users/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password }),
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                setMessage("Login realizado com sucesso!");
+                localStorage.setItem("token", data.token); // Armazena o token
+            } else {
+                setMessage(data.message || "Erro ao fazer login.");
+            }
+        } catch (error) {
+            setMessage("Erro na comunicação com o servidor.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <div className="relative w-full h-screen">
             <img
@@ -48,7 +106,6 @@ export default function SignInSignUp() {
                 alt="Imagem vintage com fundo escuro"
                 className="absolute inset-0 w-full h-full object-cover md:hidden"
             />
-
             <div className="flex items-center justify-center w-full h-full px-4 md:px-0">
                 <div className="container mx-auto flex flex-col md:flex-row items-center justify-center bg-[var(--neutral-light)] rounded-[var(--border-radius)] shadow-[var(--box-shadow)] mt-10">
                     <div className="bg-white p-6 rounded-lg shadow-lg text-center max-w-md w-full md:w-1/2 z-0">
@@ -70,10 +127,11 @@ export default function SignInSignUp() {
                                         id="email"
                                         className="border-2 border-gray-300 p-2 rounded-md text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] w-full"
                                         placeholder="Digite seu e-mail"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
                                         required
                                     />
                                 </div>
-
                                 <div className="flex flex-col mt-4 text-left relative">
                                     <label htmlFor="password" className="text-gray-700 font-medium">
                                         Senha
@@ -84,8 +142,6 @@ export default function SignInSignUp() {
                                             id="password"
                                             className="border-2 border-gray-300 p-2 rounded-md text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[var(--primary-color)] w-full pr-10"
                                             placeholder="Digite sua senha"
-                                            minLength="4"
-                                            maxLength="8"
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
                                             required
@@ -99,8 +155,6 @@ export default function SignInSignUp() {
                                             {showPassword ? <IoEyeOutline size={20} /> : <IoEyeOffOutline size={20} />}
                                         </button>
                                     </div>
-
-                                    {/* Exibir verificações de senha apenas no cadastro */}
                                     {formState.isSignUp && (
                                         <div className="mt-2 text-xs text-gray-600">
                                             <p className={passwordValidation.minLength ? "text-green-500" : "text-red-500"}>
@@ -115,8 +169,6 @@ export default function SignInSignUp() {
                                         </div>
                                     )}
                                 </div>
-
-                                {/* Campo de Confirmar Senha (apenas no cadastro) */}
                                 {formState.isSignUp && (
                                     <div className="flex flex-col mt-4 text-left relative">
                                         <label htmlFor="confirmPassword" className="text-gray-700 font-medium">
@@ -141,22 +193,20 @@ export default function SignInSignUp() {
                                                 {showConfirmPassword ? <IoEyeOutline size={20} /> : <IoEyeOffOutline size={20} />}
                                             </button>
                                         </div>
-                                        {/* Exibir mensagem de erro se as senhas não coincidirem */}
                                         {!passwordMatch && confirmPassword && (
                                             <p className="text-red-500 text-xs mt-1">As senhas não coincidem.</p>
                                         )}
                                     </div>
                                 )}
-
                                 <button
                                     className="mt-6 w-full py-2 bg-[var(--primary-color)] text-white rounded-lg font-semibold hover:bg-[var(--secondary-color)] transition cursor-pointer"
-                                    disabled={formState.isSignUp && !passwordMatch}
+                                    disabled={formState.isSignUp && (!passwordMatch || loading)}
+                                    onClick={formState.isSignUp ? handleRegister : handleLogin}
                                 >
-                                    {formState.isSignUp ? "Criar Conta" : "Entrar"}
+                                    {loading ? "Carregando..." : formState.isSignUp ? "Criar Conta" : "Entrar"}
                                 </button>
                             </>
                         )}
-
                         {formState.isForgot && (
                             <div className="flex flex-col mt-4 text-left">
                                 <label htmlFor="forgotEmail" className="text-gray-700 font-medium">
@@ -178,7 +228,6 @@ export default function SignInSignUp() {
                                 </button>
                             </div>
                         )}
-
                         <div className="mt-4">
                             <p>{formState.isSignUp ? "Já tem uma conta?" : formState.isForgot ? "Voltar ao login" : "Não tem uma conta?"}</p>
                             <button
@@ -198,8 +247,8 @@ export default function SignInSignUp() {
                                 </div>
                             )}
                         </div>
+                        {message && <p className="mt-4 text-center text-sm text-gray-600">{message}</p>}
                     </div>
-
                     <div className="hidden md:block md:w-1/2">
                         <img
                             src={vintageImage}
