@@ -20,7 +20,6 @@ export default function ProductsList() {
   const [filterOption, setFilterOption] = useState(""); // Filtro de condição (Novo / Usado) ou Ordenação
   const [sortBy, setSortBy] = useState(""); // Ordenação
 
-  // Busca os produtos da API
   useEffect(() => {
     const fetchData = async () => {
       try {

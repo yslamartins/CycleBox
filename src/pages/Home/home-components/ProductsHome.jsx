@@ -29,12 +29,12 @@ const ProductsHome = () => {
   useEffect(() => {
     const getProdutos = async () => {
       try {
-        const data = await fetchProdutos(); // Chama a função que faz a requisição
-        setProdutos(data); // Atualiza o estado com os dados da API
-        setLoading(false); // Define o carregamento como falso
+        const data = await fetchProdutos(); 
+        setProdutos(data); 
+        setLoading(false); 
       } catch (err) {
-        setError(err.message); // Armazena o erro no estado
-        setLoading(false); // Define o carregamento como falso
+        setError(err.message);
+        setLoading(false); 
       }
     };
 
